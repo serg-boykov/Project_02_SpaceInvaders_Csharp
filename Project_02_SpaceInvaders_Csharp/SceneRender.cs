@@ -62,7 +62,7 @@ namespace Project_02_SpaceInvaders_Csharp
             }
             else
             {
-                _sreenMatrix[gameObject.GameObjectPlace.YCoordinate, gameObject.GameObjectPlace.XCoordinate] = ' ';
+                ; //_sreenMatrix[gameObject.GameObjectPlace.YCoordinate, gameObject.GameObjectPlace.XCoordinate] = ' ';
             }
         }
 
@@ -72,6 +72,24 @@ namespace Project_02_SpaceInvaders_Csharp
             {
                 AddGameObjectForRendering(gameObject);
             }
+        }
+
+        public void ClearScreen()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for (int y = 0; y < _screenHeight; y++)
+            {
+                for (int x = 0; x < _screenWidth; x++)
+                {
+                    stringBuilder.Append(' ');
+                }
+
+                stringBuilder.Append(Environment.NewLine);
+            }
+
+            Console.WriteLine(stringBuilder.ToString());
+
         }
     }
 }

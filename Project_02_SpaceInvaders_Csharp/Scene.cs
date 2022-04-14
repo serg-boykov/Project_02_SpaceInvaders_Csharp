@@ -32,9 +32,10 @@ namespace Project_02_SpaceInvaders_Csharp
             swarm = new AlienShipFactory(_gameSettings).GetSwarm();
             ground = new GroundFactory(_gameSettings).GetGround();
             playerShip = new PlayerShipFactory(_gameSettings).GetGameObject();
+            playerShipMissile = new List<GameObject>();
         }
 
-        public Scene GetScene(GameSettings gameSettings)
+        public static Scene GetScene(GameSettings gameSettings)
         {
             if (_scene == null)
             {
