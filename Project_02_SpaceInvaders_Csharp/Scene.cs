@@ -9,13 +9,13 @@ namespace Project_02_SpaceInvaders_Csharp
 {
     class Scene
     {
-        private List<GameObject> _swarm;
+        public List<GameObject> swarm;
 
-        private List<GameObject> _ground;
+        public List<GameObject> ground;
 
-        private GameObject _playerShip;
+        public GameObject playerShip;
 
-        private List<GameObject> _playerShipMissile;
+        public List<GameObject> playerShipMissile;
 
         private GameSettings _gameSettings;
 
@@ -29,9 +29,9 @@ namespace Project_02_SpaceInvaders_Csharp
         private Scene(GameSettings gameSettings)
         {
             _gameSettings = gameSettings;
-            _swarm = new AlienShipFactory(_gameSettings).GetSwarm();
-            _ground = new GroundFactory(_gameSettings).GetGround();
-            _playerShip = new PlayerShipFactory(_gameSettings).GetGameObject();
+            swarm = new AlienShipFactory(_gameSettings).GetSwarm();
+            ground = new GroundFactory(_gameSettings).GetGround();
+            playerShip = new PlayerShipFactory(_gameSettings).GetGameObject();
         }
 
         public Scene GetScene(GameSettings gameSettings)
