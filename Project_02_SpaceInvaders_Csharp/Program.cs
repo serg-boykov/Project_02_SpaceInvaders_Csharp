@@ -11,6 +11,8 @@ namespace Project_02_SpaceInvaders_Csharp
 
         static UIController uIController;
 
+        static MusicController musicController;
+
         static void Main(string[] args)
         {
             Initialize();
@@ -26,9 +28,14 @@ namespace Project_02_SpaceInvaders_Csharp
 
             uIController.OnAPressed += (obj, arg) => gameEngine.CalculateMovePlayerShipLeft();
             uIController.OnDPressed += (obj, arg) => gameEngine.CalculateMovePlayerShipRight();
+            uIController.OnSpacePressed += (obj, arg) => gameEngine.Shoot();
 
             Thread uIthread = new Thread(uIController.StartListening);
             uIthread.Start();
+
+            musicController = new MusicController();
+            Thread musicThread = new Thread(musicController.PlayBackgroundMusic);
+            musicThread.Start();
 
             Thread.CurrentThread.Priority = ThreadPriority.AboveNormal;
         }

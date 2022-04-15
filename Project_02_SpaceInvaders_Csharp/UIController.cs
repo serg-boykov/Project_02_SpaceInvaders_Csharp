@@ -10,6 +10,7 @@ namespace Project_02_SpaceInvaders_Csharp
     {
         public event EventHandler OnAPressed;
         public event EventHandler OnDPressed;
+        public event EventHandler OnSpacePressed;
 
         public void StartListening()
         {
@@ -24,6 +25,10 @@ namespace Project_02_SpaceInvaders_Csharp
                 else if (key.Key.Equals(ConsoleKey.D))
                 {
                     OnDPressed?.Invoke(this, new EventArgs());
+                }
+                else if (key.Key.Equals(ConsoleKey.Spacebar))
+                {
+                    OnSpacePressed?.Invoke(this, new EventArgs());
                 }
                 else
                 {

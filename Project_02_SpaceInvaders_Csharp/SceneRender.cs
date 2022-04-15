@@ -96,5 +96,14 @@ namespace Project_02_SpaceInvaders_Csharp
 
             //Console.WriteLine(stringBuilder.ToString());
         }
+
+        public void RenderGameOver()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            stringBuilder.Append("Game Over!!!");
+
+            Console.WriteLine(stringBuilder.ToString());
+        }
     }
 }

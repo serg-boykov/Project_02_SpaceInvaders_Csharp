@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project_02_SpaceInvaders_Csharp.GameObjectFactories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,6 +46,7 @@ namespace Project_02_SpaceInvaders_Csharp
         public void Run()
         {
             int swarmMoveCounter = 0;
+            int playerMissileCounter = 0;
 
             do
             {
@@ -62,7 +64,18 @@ namespace Project_02_SpaceInvaders_Csharp
 
                 swarmMoveCounter++;
 
+                if (playerMissileCounter == _gameSettings.PlayerMissileSpeed)
+                {
+                    CalculateMissileMove();
+                    playerMissileCounter = 0;
+                }
+
+                playerMissileCounter++;
+
             } while (_isNotOver);
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            _sceneRender.RenderGameOver();
         }
 
         public void CalculateMovePlayerShipLeft()
@@ -92,6 +105,49 @@ namespace Project_02_SpaceInvaders_Csharp
                 if (alienShip.GameObjectPlace.YCoordinate == _scene.playerShip.GameObjectPlace.YCoordinate)
                 {
                     _isNotOver = false;
+                }
+            }
+        }
+
+        public void Shoot()
+        {
+            PlayerShipMissileFactory missileFactory = new PlayerShipMissileFactory(_gameSettings);
+
+            GameObject missile = missileFactory.GetGameObject(_scene.playerShip.GameObjectPlace);
+
+            _scene.playerShipMissile.Add(missile);
+
+            Console.Beep(1000, 200);
+        }
+
+        public void CalculateMissileMove()
+        {
+            if (_scene.playerShipMissile.Count == 0)
+            {
+                return;
+            }
+
+            for (int x = 0; x < _scene.playerShipMissile.Count; x++)
+            {
+                GameObject missile = _scene.playerShipMissile[x];
+
+                if (missile.GameObjectPlace.YCoordinate == 1)
+                {
+                    _scene.playerShipMissile.RemoveAt(x);
+                }
+
+                missile.GameObjectPlace.YCoordinate--;
+
+                for (int i = 0; i < _scene.swarm.Count; i++)
+                {
+                    GameObject alienShip = _scene.swarm[i];
+
+                    if (missile.GameObjectPlace.Equals(alienShip.GameObjectPlace))
+                    {
+                        _scene.swarm.RemoveAt(i);
+                        _scene.playerShipMissile.RemoveAt(x);
+                        break;
+                    }
                 }
             }
         }
