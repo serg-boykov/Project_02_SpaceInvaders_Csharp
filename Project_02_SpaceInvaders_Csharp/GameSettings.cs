@@ -30,7 +30,7 @@ namespace Project_02_SpaceInvaders_Csharp
 
         public int PlayerShipStartXCoordinate { get; set; } = 40;
 
-        public int PlayerShipStartYCoordinate { get; set; } = 20;
+        public int PlayerShipStartYCoordinate { get; set; } = 19;
 
         public char PlayerShip { get; set; } = '^';
         //------------------------------------------

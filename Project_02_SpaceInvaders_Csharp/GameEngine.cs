@@ -44,14 +44,56 @@ namespace Project_02_SpaceInvaders_Csharp
 
         public void Run()
         {
+            int swarmMoveCounter = 0;
+
             do
             {
-                _sceneRender.ClearScreen();
                 _sceneRender.Render(_scene);
 
                 Thread.Sleep(_gameSettings.GameSpeed);
 
+                _sceneRender.ClearScreen();
+
+                if (swarmMoveCounter == _gameSettings.GameSpeed)
+                {
+                    CalculateSwarmMove();
+                    swarmMoveCounter = 0;
+                }
+
+                swarmMoveCounter++;
+
             } while (_isNotOver);
+        }
+
+        public void CalculateMovePlayerShipLeft()
+        {
+            if (_scene.playerShip.GameObjectPlace.XCoordinate > 1)
+            {
+                _scene.playerShip.GameObjectPlace.XCoordinate--;
+            }
+        }
+
+        public void CalculateMovePlayerShipRight()
+        {
+            if (_scene.playerShip.GameObjectPlace.XCoordinate < _gameSettings.ConsoleWidth - 1)
+            {
+                _scene.playerShip.GameObjectPlace.XCoordinate++;
+            }
+        }
+
+        public void CalculateSwarmMove()
+        {
+            for (int i = 0; i < _scene.swarm.Count; i++)
+            {
+                GameObject alienShip = _scene.swarm[i];
+
+                alienShip.GameObjectPlace.YCoordinate++;
+
+                if (alienShip.GameObjectPlace.YCoordinate == _scene.playerShip.GameObjectPlace.YCoordinate)
+                {
+                    _isNotOver = false;
+                }
+            }
         }
     }
 }

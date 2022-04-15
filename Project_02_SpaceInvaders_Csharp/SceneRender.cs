@@ -27,6 +27,9 @@ namespace Project_02_SpaceInvaders_Csharp
 
         public void Render(Scene scene)
         {
+            //Console.Clear();
+            ClearScreen();
+            
             Console.SetCursorPosition(0, 0);
 
             AddListForRandering(scene.swarm);
@@ -76,20 +79,22 @@ namespace Project_02_SpaceInvaders_Csharp
 
         public void ClearScreen()
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            //StringBuilder stringBuilder = new StringBuilder();
 
             for (int y = 0; y < _screenHeight; y++)
             {
                 for (int x = 0; x < _screenWidth; x++)
                 {
-                    stringBuilder.Append(' ');
+                    //stringBuilder.Append(' ');
+                    _sreenMatrix[y, x] = ' ';
                 }
 
-                stringBuilder.Append(Environment.NewLine);
+                //stringBuilder.Append(Environment.NewLine);
             }
 
-            Console.WriteLine(stringBuilder.ToString());
+            Console.SetCursorPosition(0, 0);
 
+            //Console.WriteLine(stringBuilder.ToString());
         }
     }
 }

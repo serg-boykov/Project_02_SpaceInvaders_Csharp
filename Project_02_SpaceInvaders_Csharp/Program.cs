@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace Project_02_SpaceInvaders_Csharp
 {
@@ -7,6 +8,8 @@ namespace Project_02_SpaceInvaders_Csharp
         private static GameEngine gameEngine;
 
         private static GameSettings gameSettings;
+
+        static UIController uIController;
 
         static void Main(string[] args)
         {
@@ -18,6 +21,16 @@ namespace Project_02_SpaceInvaders_Csharp
         {
             gameSettings = new GameSettings();
             gameEngine = GameEngine.GetGameEngine(gameSettings);
+
+            uIController = new UIController();
+
+            uIController.OnAPressed += (obj, arg) => gameEngine.CalculateMovePlayerShipLeft();
+            uIController.OnDPressed += (obj, arg) => gameEngine.CalculateMovePlayerShipRight();
+
+            Thread uIthread = new Thread(uIController.StartListening);
+            uIthread.Start();
+
+            Thread.CurrentThread.Priority = ThreadPriority.AboveNormal;
         }
     }
 }
