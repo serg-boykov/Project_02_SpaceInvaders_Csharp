@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Project_02_SpaceInvaders_Csharp.GameObjectFactories
 {
@@ -11,14 +7,15 @@ namespace Project_02_SpaceInvaders_Csharp.GameObjectFactories
         public AlienShipFactory(GameSettings gameSettings)
             : base(gameSettings)
         {
-            
+
         }
 
         public override GameObject GetGameObject(GameObjectPlace objectPlace)
         {
             GameObject alienShip = new AlienShip()
             {
-                Figure = GameSettings.AlienShip, GameObjectPlace = objectPlace,
+                Figure = GameSettings.AlienShip,
+                GameObjectPlace = objectPlace,
                 GameObjectType = GameObjectType.AlienShip
             };
 
@@ -37,7 +34,7 @@ namespace Project_02_SpaceInvaders_Csharp.GameObjectFactories
                 for (int x = 0; x < GameSettings.NumberOfSwarmCols; x++)
                 {
                     GameObjectPlace objectPlace = new GameObjectPlace()
-                        { XCoordinate = startX + x, YCoordinate = startY + y };
+                    { XCoordinate = startX + x, YCoordinate = startY + y };
 
                     GameObject alienShip = GetGameObject(objectPlace);
 

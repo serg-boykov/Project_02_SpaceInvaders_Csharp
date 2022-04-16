@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Project_02_SpaceInvaders_Csharp
 {
@@ -29,7 +27,7 @@ namespace Project_02_SpaceInvaders_Csharp
         {
             //Console.Clear();
             ClearScreen();
-            
+
             Console.SetCursorPosition(0, 0);
 
             AddListForRandering(scene.swarm);

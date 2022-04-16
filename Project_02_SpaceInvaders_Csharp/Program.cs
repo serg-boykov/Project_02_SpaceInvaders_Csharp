@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 
 namespace Project_02_SpaceInvaders_Csharp
 {
@@ -26,8 +25,8 @@ namespace Project_02_SpaceInvaders_Csharp
 
             uIController = new UIController();
 
-            uIController.OnAPressed += (obj, arg) => gameEngine.CalculateMovePlayerShipLeft();
-            uIController.OnDPressed += (obj, arg) => gameEngine.CalculateMovePlayerShipRight();
+            uIController.OnLPressed += (obj, arg) => gameEngine.CalculateMovePlayerShipLeft();
+            uIController.OnRPressed += (obj, arg) => gameEngine.CalculateMovePlayerShipRight();
             uIController.OnSpacePressed += (obj, arg) => gameEngine.Shoot();
 
             Thread uIthread = new Thread(uIController.StartListening);

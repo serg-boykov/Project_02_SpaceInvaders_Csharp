@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Project_02_SpaceInvaders_Csharp.GameObjectFactories
+﻿namespace Project_02_SpaceInvaders_Csharp.GameObjectFactories
 {
     class PlayerShipMissileFactory : GameObjectFactory
     {
         public PlayerShipMissileFactory(GameSettings gameSettings)
             : base(gameSettings)
         {
-            
+
         }
 
         public override GameObject GetGameObject(GameObjectPlace objectPlace)
@@ -20,7 +14,8 @@ namespace Project_02_SpaceInvaders_Csharp.GameObjectFactories
 
             GameObject missile = new PlayerShipMissile()
             {
-                Figure = GameSettings.PlayerMissile, GameObjectPlace = missilePlace,
+                Figure = GameSettings.PlayerMissile,
+                GameObjectPlace = missilePlace,
                 GameObjectType = GameObjectType.PlayerShipMissile
             };
 

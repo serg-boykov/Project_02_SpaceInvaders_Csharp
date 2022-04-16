@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Project_02_SpaceInvaders_Csharp.GameObjectFactories
 {
@@ -38,7 +34,7 @@ namespace Project_02_SpaceInvaders_Csharp.GameObjectFactories
                 for (int x = 0; x < GameSettings.NumberOfGroundCols; x++)
                 {
                     GameObjectPlace objectPlace = new GameObjectPlace()
-                        { XCoordinate = startX + x, YCoordinate = startY + y };
+                    { XCoordinate = startX + x, YCoordinate = startY + y };
 
                     GameObject groundObj = GetGameObject(objectPlace);
 

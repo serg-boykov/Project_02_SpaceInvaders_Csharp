@@ -1,17 +1,13 @@
 ﻿using Project_02_SpaceInvaders_Csharp.GameObjectFactories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Project_02_SpaceInvaders_Csharp
 {
     class GameEngine
     {
         private bool _isNotOver;
-        
+
         private static GameEngine _gameEngine;
 
         private SceneRender _sceneRender;
@@ -22,7 +18,7 @@ namespace Project_02_SpaceInvaders_Csharp
 
         private GameEngine()
         {
-            
+
         }
 
         private GameEngine(GameSettings gameSettings)

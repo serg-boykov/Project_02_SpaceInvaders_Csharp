@@ -1,9 +1,5 @@
-﻿using System;
+﻿using Project_02_SpaceInvaders_Csharp.GameObjectFactories;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Project_02_SpaceInvaders_Csharp.GameObjectFactories;
 
 namespace Project_02_SpaceInvaders_Csharp
 {
@@ -23,7 +19,7 @@ namespace Project_02_SpaceInvaders_Csharp
 
         private Scene()
         {
-            
+
         }
 
         private Scene(GameSettings gameSettings)
