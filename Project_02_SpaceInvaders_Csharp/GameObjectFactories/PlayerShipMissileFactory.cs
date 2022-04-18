@@ -10,7 +10,11 @@
 
         public override GameObject GetGameObject(GameObjectPlace objectPlace)
         {
-            GameObjectPlace missilePlace = new GameObjectPlace() { XCoordinate = objectPlace.XCoordinate, YCoordinate = objectPlace.YCoordinate - 1 };
+            GameObjectPlace missilePlace = new GameObjectPlace() 
+            { 
+                XCoordinate = objectPlace.XCoordinate,
+                YCoordinate = objectPlace.YCoordinate - 1
+            };
 
             GameObject missile = new PlayerShipMissile()
             {

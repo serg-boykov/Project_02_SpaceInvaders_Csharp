@@ -43,6 +43,8 @@ namespace Project_02_SpaceInvaders_Csharp
         {
             int swarmMoveCounter = 0;
             int playerMissileCounter = 0;
+            int bombCreatingCounter = 0;
+            int bombCounter = 0;
 
             do
             {
@@ -52,7 +54,7 @@ namespace Project_02_SpaceInvaders_Csharp
 
                 _sceneRender.ClearScreen();
 
-                if (swarmMoveCounter == _gameSettings.GameSpeed)
+                if (swarmMoveCounter == _gameSettings.SwarmSpeed)
                 {
                     CalculateSwarmMove();
                     swarmMoveCounter = 0;
@@ -67,6 +69,25 @@ namespace Project_02_SpaceInvaders_Csharp
                 }
 
                 playerMissileCounter++;
+
+
+                if (bombCreatingCounter == _gameSettings.AlienBombSpeedCreating)
+                {
+                    Bomb();
+                    bombCreatingCounter = 0;
+                }
+
+                bombCreatingCounter++;
+
+
+                if (bombCounter == _gameSettings.AlienBombSpeed)
+                {
+                    CalculateBombMove();
+                    bombCounter = 0;
+                }
+
+                bombCounter++;
+
 
             } while (_isNotOver);
 
@@ -142,6 +163,67 @@ namespace Project_02_SpaceInvaders_Csharp
                     {
                         _scene.swarm.RemoveAt(i);
                         _scene.playerShipMissile.RemoveAt(x);
+                        break;
+                    }
+                }
+
+                for (int i = 0; i < _scene.alienShipBomb.Count; i++)
+                {
+                    GameObject alienBomb = _scene.alienShipBomb[i];
+
+                    if (missile.GameObjectPlace.Equals(alienBomb.GameObjectPlace))
+                    {
+                        _scene.alienShipBomb.RemoveAt(i);
+                        _scene.playerShipMissile.RemoveAt(x);
+                        Console.Beep(200, 200);
+                        break;
+                    }
+                }
+            }
+        }
+
+        public void Bomb()
+        {
+            AlienShipBombFactory bombFactory = new AlienShipBombFactory(_gameSettings);
+
+            Random random = new Random();
+            int rand = random.Next(_scene.swarm.Count);
+            GameObject bomb = bombFactory.GetGameObject(_scene.swarm[rand].GameObjectPlace);
+
+            _scene.alienShipBomb.Add(bomb);
+        }
+
+        public void CalculateBombMove()
+        {
+            if (_scene.alienShipBomb.Count == 0)
+            {
+                return;
+            }
+
+            for (int x = 0; x < _scene.alienShipBomb.Count; x++)
+            {
+                GameObject bomb = _scene.alienShipBomb[x];
+
+                if (bomb.GameObjectPlace.YCoordinate == _gameSettings.ConsoleHeight - 1)
+                {
+                    _scene.alienShipBomb.RemoveAt(x);
+                }
+
+                bomb.GameObjectPlace.YCoordinate++;
+
+                if (_scene.alienShipBomb[x].GameObjectPlace.Equals(_scene.playerShip.GameObjectPlace))
+                {
+                    _isNotOver = false;
+                }
+
+                for (int i = 0; i < _scene.ground.Count; i++)
+                {
+                    GameObject groundObj = _scene.ground[i];
+
+                    if (bomb.GameObjectPlace.Equals(groundObj.GameObjectPlace))
+                    {
+                        _scene.ground.RemoveAt(i);
+                        _scene.alienShipBomb.RemoveAt(x);
                         break;
                     }
                 }

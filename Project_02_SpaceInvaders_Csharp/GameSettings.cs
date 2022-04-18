@@ -19,7 +19,7 @@
 
         public char AlienShip { get; set; } = 'O';
 
-        public int SwarmSpeed { get; set; } = 20;
+        public int SwarmSpeed { get; set; } = 200;
         //------------------------------------------
 
         public int PlayerShipStartXCoordinate { get; set; } = 40;
@@ -45,8 +45,15 @@
 
         public int PlayerMissileSpeed { get; set; } = 5;
         //------------------------------------------
+        
+        public char AlienBomb { get; set; } = '*';
 
-        public int GameSpeed { get; set; } = 100;
+        public int AlienBombSpeed { get; set; } = 50;
+
+        public int AlienBombSpeedCreating { get; set; } = 100;
+        //------------------------------------------
+
+        public int GameSpeed { get; set; } = 5;
     }
 }
 

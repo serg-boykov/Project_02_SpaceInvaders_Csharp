@@ -13,6 +13,8 @@ namespace Project_02_SpaceInvaders_Csharp
 
         public List<GameObject> playerShipMissile;
 
+        public List<GameObject> alienShipBomb;
+
         private GameSettings _gameSettings;
 
         private static Scene _scene;
@@ -29,6 +31,7 @@ namespace Project_02_SpaceInvaders_Csharp
             ground = new GroundFactory(_gameSettings).GetGround();
             playerShip = new PlayerShipFactory(_gameSettings).GetGameObject();
             playerShipMissile = new List<GameObject>();
+            alienShipBomb = new List<GameObject>();
         }
 
         public static Scene GetScene(GameSettings gameSettings)

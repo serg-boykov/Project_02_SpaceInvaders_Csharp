@@ -4,10 +4,12 @@
     {
         AlienShip = 1,
 
-        PlayerShip = 2,
+        AlienShipBomb = 2,
 
-        PlayerShipMissile = 3,
+        PlayerShip = 3,
 
-        GroundObject = 4
+        PlayerShipMissile = 4,
+
+        GroundObject = 5
     }
 }

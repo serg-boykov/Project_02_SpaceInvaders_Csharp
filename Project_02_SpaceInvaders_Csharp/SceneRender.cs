@@ -25,7 +25,6 @@ namespace Project_02_SpaceInvaders_Csharp
 
         public void Render(Scene scene)
         {
-            //Console.Clear();
             ClearScreen();
 
             Console.SetCursorPosition(0, 0);
@@ -33,6 +32,7 @@ namespace Project_02_SpaceInvaders_Csharp
             AddListForRandering(scene.swarm);
             AddListForRandering(scene.ground);
             AddListForRandering(scene.playerShipMissile);
+            AddListForRandering(scene.alienShipBomb);
 
             AddGameObjectForRendering(scene.playerShip);
 
