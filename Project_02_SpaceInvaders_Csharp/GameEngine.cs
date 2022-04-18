@@ -16,6 +16,9 @@ namespace Project_02_SpaceInvaders_Csharp
 
         private Scene _scene;
 
+        private int scoreAlienShips = 0;
+        private int scoreGroundObjects = 0;
+
         private GameEngine()
         {
 
@@ -45,6 +48,8 @@ namespace Project_02_SpaceInvaders_Csharp
             int playerMissileCounter = 0;
             int bombCreatingCounter = 0;
             int bombCounter = 0;
+
+            scoreGroundObjects = _gameSettings.NumberOfGroundRows * _gameSettings.NumberOfGroundCols;
 
             do
             {
@@ -93,6 +98,8 @@ namespace Project_02_SpaceInvaders_Csharp
 
             Console.ForegroundColor = ConsoleColor.Red;
             _sceneRender.RenderGameOver();
+            Console.ForegroundColor = ConsoleColor.Green;
+            _sceneRender.GetScore(_gameSettings, scoreAlienShips, scoreGroundObjects);
         }
 
         public void CalculateMovePlayerShipLeft()
@@ -163,6 +170,7 @@ namespace Project_02_SpaceInvaders_Csharp
                     {
                         _scene.swarm.RemoveAt(i);
                         _scene.playerShipMissile.RemoveAt(x);
+                        scoreAlienShips++;
                         break;
                     }
                 }
@@ -224,6 +232,7 @@ namespace Project_02_SpaceInvaders_Csharp
                     {
                         _scene.ground.RemoveAt(i);
                         _scene.alienShipBomb.RemoveAt(x);
+                        scoreGroundObjects--;
                         break;
                     }
                 }

@@ -99,9 +99,26 @@ namespace Project_02_SpaceInvaders_Csharp
         {
             StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.Append("Game Over!!!");
+            stringBuilder.Append("GAME  OVER");
 
+            Console.SetCursorPosition(35, 1);
             Console.WriteLine(stringBuilder.ToString());
+        }
+
+        /// <summary>
+        /// Print the score on screen.
+        /// </summary>
+        /// <param name="gameSettings">Game settings.</param>
+        /// <param name="scoreAlienShips">Alien ships destroyed.</param>
+        /// <param name="scoreGroundObjects">Ground objects remained.</param>
+        public void GetScore(GameSettings gameSettings, int scoreAlienShips, int scoreGroundObjects)
+        {
+            Console.SetCursorPosition(2, 22);
+            Console.WriteLine("SCORE:\n");
+            Console.WriteLine($"Alien ships destroyed: {scoreAlienShips} " +
+                $"из {gameSettings.NumberOfSwarmRows * gameSettings.NumberOfSwarmCols}");
+            Console.WriteLine($"Ground objects remained: {scoreGroundObjects} " +
+                $"из {gameSettings.NumberOfGroundRows * gameSettings.NumberOfGroundCols}");
         }
     }
 }
