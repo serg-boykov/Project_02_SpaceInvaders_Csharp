@@ -8,6 +8,10 @@ namespace Project_02_SpaceInvaders_Csharp
         public event EventHandler OnRPressed;
         public event EventHandler OnSpacePressed;
 
+        public event EventHandler OnPausePressed;
+        public event EventHandler OnEscapePressed;
+        public event EventHandler OnEnterPressed;
+
         public void StartListening()
         {
             while (true)
@@ -26,9 +30,17 @@ namespace Project_02_SpaceInvaders_Csharp
                 {
                     OnSpacePressed?.Invoke(this, new EventArgs());
                 }
-                else
+                else if (key.Key.Equals(ConsoleKey.P))
                 {
-                    ;
+                    OnPausePressed?.Invoke(this, new EventArgs());
+                }
+                else if (key.Key.Equals(ConsoleKey.Escape))
+                {
+                    OnEscapePressed?.Invoke(this, new EventArgs());
+                }
+                else if (key.Key.Equals(ConsoleKey.Enter))
+                {
+                    OnEnterPressed?.Invoke(this, new EventArgs());
                 }
             }
         }

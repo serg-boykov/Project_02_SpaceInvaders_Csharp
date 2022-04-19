@@ -36,10 +36,7 @@ namespace Project_02_SpaceInvaders_Csharp
 
         public static Scene GetScene(GameSettings gameSettings)
         {
-            if (_scene == null)
-            {
-                _scene = new Scene(gameSettings);
-            }
+            _scene = new Scene(gameSettings);
 
             return _scene;
         }

@@ -4,7 +4,9 @@
     {
         public int ConsoleWidth { get; set; } = 80;
 
-        public int ConsoleHeight { get; set; } = 30;
+        public int ConsoleHeight { get; set; } = 33;
+
+        public int ConsoleCtrlPanelHeight { get; set; } = 8;
         //------------------------------------------
 
         public int NumberOfSwarmRows { get; set; } = 2;
@@ -29,7 +31,7 @@
         public char PlayerShip { get; set; } = '^';
         //------------------------------------------
 
-        public int GroundStartXCoordinate { get; set; } = 1;
+        public int GroundStartXCoordinate { get; set; } = 0;
 
         public int GroundStartYCoordinate { get; set; } = 20;
 

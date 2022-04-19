@@ -16,8 +16,12 @@ namespace Project_02_SpaceInvaders_Csharp
 
         private Scene _scene;
 
-        private int scoreAlienShips = 0;
-        private int scoreGroundObjects = 0;
+        private int scoreAlienShips;
+        private int scoreGroundObjects;
+
+        private bool isKeyPause;
+        private bool isKeyEscape;
+        public bool isKeyEnter;
 
         private GameEngine()
         {
@@ -30,14 +34,15 @@ namespace Project_02_SpaceInvaders_Csharp
             _isNotOver = true;
             _scene = Scene.GetScene(gameSettings);
             _sceneRender = new SceneRender(gameSettings);
+
+            isKeyPause = false;
+            isKeyEscape = false;
+            isKeyEnter = false;
         }
 
         public static GameEngine GetGameEngine(GameSettings gameSettings)
         {
-            if (_gameEngine == null)
-            {
-                _gameEngine = new GameEngine(gameSettings);
-            }
+            _gameEngine = new GameEngine(gameSettings);
 
             return _gameEngine;
         }
@@ -49,10 +54,27 @@ namespace Project_02_SpaceInvaders_Csharp
             int bombCreatingCounter = 0;
             int bombCounter = 0;
 
+            scoreAlienShips = 0;
             scoreGroundObjects = _gameSettings.NumberOfGroundRows * _gameSettings.NumberOfGroundCols;
+            
+            _sceneRender.ControlPanel();
 
             do
             {
+                if (isKeyPause)
+                {
+                    continue;
+                }
+                if (isKeyEscape)
+                {
+                    Console.Clear();
+                    Environment.Exit(0);
+                }
+                if (isKeyEnter)
+                {
+                    break;
+                }
+
                 _sceneRender.Render(_scene);
 
                 Thread.Sleep(_gameSettings.GameSpeed);
@@ -100,6 +122,7 @@ namespace Project_02_SpaceInvaders_Csharp
             _sceneRender.RenderGameOver();
             Console.ForegroundColor = ConsoleColor.Green;
             _sceneRender.GetScore(_gameSettings, scoreAlienShips, scoreGroundObjects);
+            Console.ForegroundColor = ConsoleColor.Gray;
         }
 
         public void CalculateMovePlayerShipLeft()
@@ -237,6 +260,21 @@ namespace Project_02_SpaceInvaders_Csharp
                     }
                 }
             }
+        }
+
+        public void PauseGame()
+        {
+            isKeyPause = !isKeyPause;
+        }
+
+        public void ExitGame()
+        {
+            isKeyEscape = !isKeyEscape;
+        }
+
+        public void StartGame()
+        {
+            isKeyEnter = !isKeyEnter;
         }
     }
 }
