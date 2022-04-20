@@ -1,5 +1,8 @@
 ﻿namespace Project_02_SpaceInvaders_Csharp
 {
+    /// <summary>
+    /// Game object type.
+    /// </summary>
     enum GameObjectType
     {
         AlienShip = 1,

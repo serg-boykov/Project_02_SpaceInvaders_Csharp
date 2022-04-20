@@ -30,7 +30,9 @@ namespace Project_02_SpaceInvaders_Csharp
                 }
             }
         }
-
+        /// <summary>
+        /// Initialization of the game.
+        /// </summary>
         public static void Initialize()
         {
             gameSettings = new GameSettings();
@@ -38,6 +40,7 @@ namespace Project_02_SpaceInvaders_Csharp
 
             uIController = new UIController();
 
+            // Defining events for the Control Panel.
             uIController.OnLPressed += (obj, arg) => gameEngine.CalculateMovePlayerShipLeft();
             uIController.OnRPressed += (obj, arg) => gameEngine.CalculateMovePlayerShipRight();
             uIController.OnSpacePressed += (obj, arg) => gameEngine.Shoot();
@@ -46,10 +49,13 @@ namespace Project_02_SpaceInvaders_Csharp
             uIController.OnEscapePressed += (obj, arg) => gameEngine.ExitGame();
             uIController.OnEnterPressed += (obj, arg) => gameEngine.StartGame();
 
+            // Thread for Control Panel.
             Thread uIthread = new Thread(uIController.StartListening);
             uIthread.Start();
 
             musicController = new MusicController();
+
+            // Thread for Music.
             Thread musicThread = new Thread(musicController.PlayBackgroundMusic);
             musicThread.Start();
 

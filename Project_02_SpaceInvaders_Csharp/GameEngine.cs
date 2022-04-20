@@ -4,8 +4,14 @@ using System.Threading;
 
 namespace Project_02_SpaceInvaders_Csharp
 {
+    /// <summary>
+    /// Class for calculating of the game scene.
+    /// </summary>
     class GameEngine
     {
+        /// <summary>
+        /// Game over trigger.
+        /// </summary>
         private bool _isNotOver;
 
         private static GameEngine _gameEngine;
@@ -16,11 +22,32 @@ namespace Project_02_SpaceInvaders_Csharp
 
         private Scene _scene;
 
+        /// <summary>
+        /// Alien ships destroyed.
+        /// </summary>
         private int scoreAlienShips;
+
+        /// <summary>
+        /// Ground objects remained.
+        /// </summary>
         private int scoreGroundObjects;
 
+
+        // Keystroke triggers.
+
+        /// <summary>
+        /// Key P pressed.
+        /// </summary>
         private bool isKeyPause;
+
+        /// <summary>
+        /// Key Esc pressed.
+        /// </summary>
         private bool isKeyEscape;
+
+        /// <summary>
+        /// Key Enter pressed.
+        /// </summary>
         public bool isKeyEnter;
 
         private GameEngine()
@@ -47,6 +74,9 @@ namespace Project_02_SpaceInvaders_Csharp
             return _gameEngine;
         }
 
+        /// <summary>
+        /// Starting the game.
+        /// </summary>
         public void Run()
         {
             int swarmMoveCounter = 0;
@@ -81,6 +111,8 @@ namespace Project_02_SpaceInvaders_Csharp
 
                 _sceneRender.ClearScreen();
 
+                
+                // Moving alien sheps.
                 if (swarmMoveCounter == _gameSettings.SwarmSpeed)
                 {
                     CalculateSwarmMove();
@@ -89,6 +121,8 @@ namespace Project_02_SpaceInvaders_Csharp
 
                 swarmMoveCounter++;
 
+
+                // Moving player missiles.
                 if (playerMissileCounter == _gameSettings.PlayerMissileSpeed)
                 {
                     CalculateMissileMove();
@@ -98,6 +132,7 @@ namespace Project_02_SpaceInvaders_Csharp
                 playerMissileCounter++;
 
 
+                // Randomly creating alien bombs.
                 if (bombCreatingCounter == _gameSettings.AlienBombSpeedCreating)
                 {
                     Bomb();
@@ -107,6 +142,7 @@ namespace Project_02_SpaceInvaders_Csharp
                 bombCreatingCounter++;
 
 
+                // Moving alien bombs.
                 if (bombCounter == _gameSettings.AlienBombSpeed)
                 {
                     CalculateBombMove();
@@ -121,10 +157,17 @@ namespace Project_02_SpaceInvaders_Csharp
             Console.ForegroundColor = ConsoleColor.Red;
             _sceneRender.RenderGameOver();
             Console.ForegroundColor = ConsoleColor.Green;
+
+            // Displaying the score on the screen.
             _sceneRender.GetScore(_gameSettings, scoreAlienShips, scoreGroundObjects);
+
+            // Restore console Foreground Color by default.
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
+        /// <summary>
+        /// Moving the Player ship to the left.
+        /// </summary>
         public void CalculateMovePlayerShipLeft()
         {
             if (_scene.playerShip.GameObjectPlace.XCoordinate > 1)
@@ -133,6 +176,9 @@ namespace Project_02_SpaceInvaders_Csharp
             }
         }
 
+        /// <summary>
+        /// Moving the Player ship to the right.
+        /// </summary>
         public void CalculateMovePlayerShipRight()
         {
             if (_scene.playerShip.GameObjectPlace.XCoordinate < _gameSettings.ConsoleWidth - 1)
@@ -141,6 +187,9 @@ namespace Project_02_SpaceInvaders_Csharp
             }
         }
 
+        /// <summary>
+        /// Moving alien ships down.
+        /// </summary>
         public void CalculateSwarmMove()
         {
             for (int i = 0; i < _scene.swarm.Count; i++)
@@ -149,13 +198,17 @@ namespace Project_02_SpaceInvaders_Csharp
 
                 alienShip.GameObjectPlace.YCoordinate++;
 
-                if (alienShip.GameObjectPlace.YCoordinate == _scene.playerShip.GameObjectPlace.YCoordinate)
+                bool isGameOver = alienShip.GameObjectPlace.YCoordinate == _scene.playerShip.GameObjectPlace.YCoordinate;
+                if (isGameOver)
                 {
                     _isNotOver = false;
                 }
             }
         }
 
+        /// <summary>
+        /// Shoot missiles.
+        /// </summary>
         public void Shoot()
         {
             PlayerShipMissileFactory missileFactory = new PlayerShipMissileFactory(_gameSettings);
@@ -167,17 +220,23 @@ namespace Project_02_SpaceInvaders_Csharp
             Console.Beep(1000, 200);
         }
 
+        /// <summary>
+        /// Moving missiles.
+        /// </summary>
         public void CalculateMissileMove()
         {
+            // No missiles.
             if (_scene.playerShipMissile.Count == 0)
             {
                 return;
             }
 
+            // There are missiles.
             for (int x = 0; x < _scene.playerShipMissile.Count; x++)
             {
                 GameObject missile = _scene.playerShipMissile[x];
 
+                // The missile was out the screen.
                 if (missile.GameObjectPlace.YCoordinate == 1)
                 {
                     _scene.playerShipMissile.RemoveAt(x);
@@ -185,6 +244,7 @@ namespace Project_02_SpaceInvaders_Csharp
 
                 missile.GameObjectPlace.YCoordinate--;
 
+                // The missile destroyed the alien ship.
                 for (int i = 0; i < _scene.swarm.Count; i++)
                 {
                     GameObject alienShip = _scene.swarm[i];
@@ -198,6 +258,7 @@ namespace Project_02_SpaceInvaders_Csharp
                     }
                 }
 
+                // The missile destroyed the alien bomb.
                 for (int i = 0; i < _scene.alienShipBomb.Count; i++)
                 {
                     GameObject alienBomb = _scene.alienShipBomb[i];
@@ -213,6 +274,9 @@ namespace Project_02_SpaceInvaders_Csharp
             }
         }
 
+        /// <summary>
+        /// Randomly creating alien bombs.
+        /// </summary>
         public void Bomb()
         {
             AlienShipBombFactory bombFactory = new AlienShipBombFactory(_gameSettings);
@@ -224,17 +288,23 @@ namespace Project_02_SpaceInvaders_Csharp
             _scene.alienShipBomb.Add(bomb);
         }
 
+        /// <summary>
+        /// Moving alien bombs down.
+        /// </summary>
         public void CalculateBombMove()
         {
+            // No bombs.
             if (_scene.alienShipBomb.Count == 0)
             {
                 return;
             }
 
+            // There are bombs.
             for (int x = 0; x < _scene.alienShipBomb.Count; x++)
             {
                 GameObject bomb = _scene.alienShipBomb[x];
 
+                // // The bomb was out the screen.
                 if (bomb.GameObjectPlace.YCoordinate == _gameSettings.ConsoleHeight - 1)
                 {
                     _scene.alienShipBomb.RemoveAt(x);
@@ -242,11 +312,14 @@ namespace Project_02_SpaceInvaders_Csharp
 
                 bomb.GameObjectPlace.YCoordinate++;
 
-                if (_scene.alienShipBomb[x].GameObjectPlace.Equals(_scene.playerShip.GameObjectPlace))
+                // The bomb destroyed the player ship.
+                bool isGameOver = _scene.alienShipBomb[x].GameObjectPlace.Equals(_scene.playerShip.GameObjectPlace);
+                if (isGameOver)
                 {
                     _isNotOver = false;
                 }
 
+                // Bombs destroyed Ground Objects.
                 for (int i = 0; i < _scene.ground.Count; i++)
                 {
                     GameObject groundObj = _scene.ground[i];
@@ -262,16 +335,25 @@ namespace Project_02_SpaceInvaders_Csharp
             }
         }
 
+        /// <summary>
+        /// Game pause.
+        /// </summary>
         public void PauseGame()
         {
             isKeyPause = !isKeyPause;
         }
 
+        /// <summary>
+        /// Exit from the game
+        /// </summary>
         public void ExitGame()
         {
             isKeyEscape = !isKeyEscape;
         }
 
+        /// <summary>
+        /// Game start or restart.
+        /// </summary>
         public void StartGame()
         {
             isKeyEnter = !isKeyEnter;

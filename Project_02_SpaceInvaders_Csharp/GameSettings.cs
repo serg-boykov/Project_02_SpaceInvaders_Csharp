@@ -1,5 +1,8 @@
 ﻿namespace Project_02_SpaceInvaders_Csharp
 {
+    /// <summary>
+    /// Game Settings.
+    /// </summary>
     class GameSettings
     {
         public int ConsoleWidth { get; set; } = 80;

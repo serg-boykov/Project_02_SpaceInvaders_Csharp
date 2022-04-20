@@ -3,8 +3,14 @@ using System.Threading;
 
 namespace Project_02_SpaceInvaders_Csharp
 {
+    /// <summary>
+    /// Class for playing melodies.
+    /// </summary>
     class MusicController
     {
+        /// <summary>
+        /// Playing background music.
+        /// </summary>
         public void PlayBackgroundMusic()
         {
             while (true)

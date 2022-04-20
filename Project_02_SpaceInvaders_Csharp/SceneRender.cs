@@ -4,19 +4,41 @@ using System.Text;
 
 namespace Project_02_SpaceInvaders_Csharp
 {
+    /// <summary>
+    /// Rendering all objects in the scene.
+    /// </summary>
     class SceneRender
     {
+        /// <summary>
+        /// Width of the Console Screen.
+        /// </summary>
         private int _screenWidth;
-        private int _screenHeight;
-        private char[,] _sreenMatrix;
-        private int _ctrlPanelHeight;
 
+        /// <summary>
+        /// Height of the Console Screen.
+        /// </summary>
+        private int _screenHeight;
+
+        /// <summary>
+        /// An array of characters on the square Console area.
+        /// </summary>
+        private char[,] _sreenMatrix;
+
+        /// <summary>
+        /// Height of the Control Panel area.
+        /// </summary>
+        private int _controlPanelHeight;
+
+        /// <summary>
+        /// Class SceneRender constructor.
+        /// </summary>
+        /// <param name="gameSettings">Game settings.</param>
         public SceneRender(GameSettings gameSettings)
         {
             _screenWidth = gameSettings.ConsoleWidth;
             _screenHeight = gameSettings.ConsoleHeight;
             _sreenMatrix = new char[gameSettings.ConsoleHeight, gameSettings.ConsoleWidth];
-            _ctrlPanelHeight = gameSettings.ConsoleCtrlPanelHeight;
+            _controlPanelHeight = gameSettings.ConsoleCtrlPanelHeight;
 
             Console.WindowHeight = gameSettings.ConsoleHeight;
             Console.WindowWidth = gameSettings.ConsoleWidth;
@@ -25,21 +47,26 @@ namespace Project_02_SpaceInvaders_Csharp
             Console.SetCursorPosition(0, 0);
         }
 
+        /// <summary>
+        /// Rendering of the scene of all objects.
+        /// </summary>
+        /// <param name="scene">The scene of all objects.</param>
         public void Render(Scene scene)
         {
             ClearScreen();
 
             Console.SetCursorPosition(0, 0);
 
+            // Creating all objects.
             AddListForRandering(scene.swarm);
             AddListForRandering(scene.ground);
             AddListForRandering(scene.playerShipMissile);
             AddListForRandering(scene.alienShipBomb);
-
             AddGameObjectForRendering(scene.playerShip);
 
             StringBuilder stringBuilder = new StringBuilder();
 
+            // Rendering all objects.
             for (int y = 0; y < _screenHeight; y++)
             {
                 for (int x = 0; x < _screenWidth; x++)
@@ -55,6 +82,10 @@ namespace Project_02_SpaceInvaders_Csharp
             Console.SetCursorPosition(0, 0);
         }
 
+        /// <summary>
+        /// Adding the Game Object to the screen array.
+        /// </summary>
+        /// <param name="gameObject">Game object.</param>
         public void AddGameObjectForRendering(GameObject gameObject)
         {
             bool isObjectPlace = gameObject.GameObjectPlace.YCoordinate < _sreenMatrix.GetLength(0) &&
@@ -66,6 +97,10 @@ namespace Project_02_SpaceInvaders_Csharp
             }
         }
 
+        /// <summary>
+        /// Adding the List of Game Objects to the screen array.
+        /// </summary>
+        /// <param name="gameObjects">The List of Game Objects.</param>
         public void AddListForRandering(List<GameObject> gameObjects)
         {
             foreach (var gameObject in gameObjects)
@@ -74,9 +109,12 @@ namespace Project_02_SpaceInvaders_Csharp
             }
         }
 
+        /// <summary>
+        /// Cleaning the screen.
+        /// </summary>
         public void ClearScreen()
         {
-            for (int y = 0; y < _screenHeight - _ctrlPanelHeight; y++)
+            for (int y = 0; y < _screenHeight - _controlPanelHeight; y++)
             {
                 for (int x = 0; x < _screenWidth; x++)
                 {
@@ -85,6 +123,9 @@ namespace Project_02_SpaceInvaders_Csharp
             }
         }
 
+        /// <summary>
+        /// Control panel information on the screen.
+        /// </summary>
         public void ControlPanel()
         {
             Console.SetCursorPosition(0, 25);
@@ -99,6 +140,9 @@ namespace Project_02_SpaceInvaders_Csharp
             Console.WriteLine("Key 'SpaceBar' - Shoot to Alien Ships");
         }
 
+        /// <summary>
+        /// 'Game over' information on the screen.
+        /// </summary>
         public void RenderGameOver()
         {
             StringBuilder stringBuilder = new StringBuilder();

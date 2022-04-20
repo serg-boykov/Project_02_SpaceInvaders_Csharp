@@ -2,6 +2,9 @@
 
 namespace Project_02_SpaceInvaders_Csharp.GameObjectFactories
 {
+    /// <summary>
+    /// Alien ship factory.
+    /// </summary>
     class AlienShipFactory : GameObjectFactory
     {
         public AlienShipFactory(GameSettings gameSettings)
@@ -10,6 +13,11 @@ namespace Project_02_SpaceInvaders_Csharp.GameObjectFactories
 
         }
 
+        /// <summary>
+        /// Creating a new alien ship in the place on the screen.
+        /// </summary>
+        /// <param name="objectPlace">The place on the screen.</param>
+        /// <returns>The new alien ship.</returns>
         public override GameObject GetGameObject(GameObjectPlace objectPlace)
         {
             GameObject alienShip = new AlienShip()
@@ -22,6 +30,10 @@ namespace Project_02_SpaceInvaders_Csharp.GameObjectFactories
             return alienShip;
         }
 
+        /// <summary>
+        /// Creating the swarm of alien ships.
+        /// </summary>
+        /// <returns>The swarm of alien ships.</returns>
         public List<GameObject> GetSwarm()
         {
             List<GameObject> swarm = new List<GameObject>();
